@@ -51,6 +51,7 @@ contract CS251StanfordNFT is ERC721, ERC721Enumerable, AccessControl {
     address to,
     uint256 tokenId
   ) internal override(ERC721, ERC721Enumerable) {
+    require(hasRole(MINTER_ROLE, msg.sender), "Caller is not minter");
     super._beforeTokenTransfer(from, to, tokenId);
   }
 
