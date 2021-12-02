@@ -20,6 +20,8 @@ import "@openzeppelin/contracts/utils/Counters.sol";
  *     to be non-transferable this is of no concern
  * - Roles: Only minter should be able to mint and transfer
  *          Owner === minter should renounce ownership
+ *
+ * Requirement: Non-transferable (see _beforeTokenTransfer override)
  */
 
 /// @custom:security-contact cs251ta@cs.stanford.edu
