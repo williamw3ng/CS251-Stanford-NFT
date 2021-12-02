@@ -22,13 +22,30 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
+const MUMBAI_RPC_URL = "https://matic-mumbai.chainstacklabs.com";
+const POLYGON_RPC_UTL = "https://polygon-rpc.com/";
+const PROD_ACCOUNTS =
+  process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [];
+
+// Address: 0x08b353377aCea9a9f2c68F082fc6C80E09Ad7Aab
+const TESTNET_ACCOUNTS = [
+  "0xef44f641fb45153d599239a29161c158149f989959711cf89af260826883500c",
+];
+
 const config: HardhatUserConfig = {
   solidity: "0.8.4",
   networks: {
     ropsten: {
       url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      accounts: TESTNET_ACCOUNTS,
+    },
+    mumbai: {
+      url: MUMBAI_RPC_URL,
+      accounts: TESTNET_ACCOUNTS,
+    },
+    polygon: {
+      url: POLYGON_RPC_UTL,
+      accounts: PROD_ACCOUNTS,
     },
   },
   gasReporter: {
