@@ -1,19 +1,29 @@
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
+import { CS251StanfordNFT } from "../typechain";
 
-describe("Greeter", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
-    await greeter.deployed();
+describe("CS251-Stanford-NFT", function () {
+  let CS251StanfordNFT: CS251StanfordNFT;
+  let minter: SignerWithAddress;
+  let account1: SignerWithAddress;
+  this.beforeAll(async () => {
+    [minter, account1] = await ethers.getSigners();
+  });
+  this.beforeAll(async () => {
+    const CS251StanfordNFTFactory = await ethers.getContractFactory(
+      "CS251StanfordNFT"
+    );
+    CS251StanfordNFT = await CS251StanfordNFTFactory.deploy();
+    await CS251StanfordNFT.deployed();
+  });
+  it("Should return the correct name", async function () {
+    const CS251StanfordNFTFactory = await ethers.getContractFactory(
+      "CS251StanfordNFT"
+    );
+    const CS251StanfordNFT = await CS251StanfordNFTFactory.deploy();
+    await CS251StanfordNFT.deployed();
 
-    expect(await greeter.greet()).to.equal("Hello, world!");
-
-    const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
-
-    // wait until the transaction is mined
-    await setGreetingTx.wait();
-
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
+    expect(await CS251StanfordNFT.name()).to.equal("CS251-Stanford-NFT");
   });
 });
