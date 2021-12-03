@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
  * Created using Open Zeppelin contract wizard at
  * https://docs.openzeppelin.com/contracts/4.x/wizard
  *
- * Features: Mintable, Auto Increment Ids, Enumerable, Roles
+ * Features: Mintable, Auto Increment Ids, URI Storage, Enumerable, Roles
  *
  * Rationale:
  * - Mintable: We want to mint new NFTs for each new class member.

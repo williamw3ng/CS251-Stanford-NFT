@@ -42,4 +42,4 @@ yarn hardhat run scripts/uploadAndMintNFT.ts --network [mumbai | polygon]
 
 ### NOTE
 
-You will need Pinata API Keys from the .env file. These are not published along with the GitHub repo.
+You will need Pinata API Keys from the .env file. These are not published along with the GitHub repo. Contact the repo owners to get the keys.

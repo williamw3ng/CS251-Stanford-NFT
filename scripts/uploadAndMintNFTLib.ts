@@ -6,13 +6,6 @@ import { TransferEvent } from "../typechain/StanfordCS251NFT";
 import fs from "fs";
 import { ERC721MetadataStandard } from "../types";
 
-/**
- * Mints a token for `owner` with metadata URI `metadataURI`.
- *
- * @param owner
- * @param metadataIPFSHash IPFS metadataURI
- * @return Promise<tokenID>
- */
 async function mintNFT(
   to: string,
   metadataIPFSHash: string,
@@ -21,7 +14,7 @@ async function mintNFT(
   const [minter] = await ethers.getSigners();
   if (!minter) throw new Error("No minter configured");
 
-  // verify ICAP Address checksum
+  // verify ICAP Address checksum, revert on error
   const verifiedToAddress = ethers.utils.getAddress(to);
   const StanfordCS251NFT: StanfordCS251NFT = await ethers.getContractAt(
     "StanfordCS251NFT",
@@ -46,7 +39,7 @@ async function mintNFT(
     const transferEvent = event as TransferEvent;
     return transferEvent.args.tokenId;
   }
-  throw new Error("Unable to retrieve tokenId");
+  throw new Error("Unable to retrieve tokenId, are you connected to network?");
 }
 
 async function uploadImageToIPFS(

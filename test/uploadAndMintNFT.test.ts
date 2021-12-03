@@ -6,7 +6,8 @@ import { uploadAndMintNFT } from "../scripts/uploadAndMintNFTLib";
 import { ERC721MetadataStandard } from "../types";
 
 /**
- * Note: Uploaded image and metadata must be deleted from IPFS after every run
+ * Note: Uploaded image and metadata must be deleted from IPFS after every run.
+ * Make sure the image and metadata do not already exist in IPFS.
  */
 describe("uploadAndMintNFT", function () {
   let StanfordCS251NFT: StanfordCS251NFT;

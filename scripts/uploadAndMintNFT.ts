@@ -3,7 +3,8 @@ import { uploadAndMintNFT } from "./uploadAndMintNFTLib";
 
 /**
  * Note: Same image or metadata may only be uploaded once to IPFS
- * since content hashes must not crash.
+ * since content hashes must not crash. If image or metadata already
+ * exists in IPFS, uploadAndMintNFT will fail.
  */
 async function main() {
   const to = "0xD0812dd01FFF451c2e6fFA83c448714DC60917FD";
