@@ -6,13 +6,13 @@ async function main() {
     throw new Error("No deployer account configured, check hardhat.config.ts");
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", (await deployer.getBalance()).toString());
-  const CS251StanfordNFTFactory = await ethers.getContractFactory(
-    "CS251StanfordNFT"
+  const StanfordCS251NFTFactory = await ethers.getContractFactory(
+    "StanfordCS251NFT"
   );
-  const CS251StanfordNFT = await CS251StanfordNFTFactory.deploy();
-  await CS251StanfordNFT.deployed();
+  const StanfordCS251NFT = await StanfordCS251NFTFactory.deploy();
+  await StanfordCS251NFT.deployed();
 
-  console.log("CS251StanfordNFT deployed to:", CS251StanfordNFT.address);
+  console.log("StanfordCS251NFT deployed to:", StanfordCS251NFT.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

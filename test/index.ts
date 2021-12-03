@@ -1,10 +1,10 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { CS251StanfordNFT } from "../typechain";
+import { StanfordCS251NFT } from "../typechain";
 
-describe("CS251-Stanford-NFT", function () {
-  let CS251StanfordNFT: CS251StanfordNFT;
+describe("CS251 Stanford NFT", function () {
+  let StanfordCS251NFT: StanfordCS251NFT;
   let minter: SignerWithAddress;
   let account1: SignerWithAddress;
   let account2: SignerWithAddress;
@@ -12,48 +12,50 @@ describe("CS251-Stanford-NFT", function () {
     [minter, account1, account2] = await ethers.getSigners();
   });
   beforeEach(async () => {
-    const CS251StanfordNFTFactory = await ethers.getContractFactory(
-      "CS251StanfordNFT"
+    const StanfordCS251NFTFactory = await ethers.getContractFactory(
+      "StanfordCS251NFT"
     );
-    CS251StanfordNFT = await CS251StanfordNFTFactory.deploy();
-    await CS251StanfordNFT.deployed();
+    StanfordCS251NFT = await StanfordCS251NFTFactory.deploy();
+    await StanfordCS251NFT.deployed();
   });
   it("Should return the correct name", async function () {
-    expect(await CS251StanfordNFT.name()).to.equal("CS251 Stanford NFT");
+    expect(await StanfordCS251NFT.name()).to.equal("Stanford CS251 NFT");
   });
   it("Should be mintable by minter", async function () {
-    const tokenId = 42;
-    const tx = await CS251StanfordNFT.safeMint(account1.address, tokenId);
+    const tokenURI = "<some URI>";
+    const tx = await StanfordCS251NFT.safeMint(account1.address, tokenURI);
     await tx.wait();
-    expect(await CS251StanfordNFT.totalSupply()).to.equal(1);
-    expect(await CS251StanfordNFT.balanceOf(minter.address)).to.equal(0);
-    expect(await CS251StanfordNFT.balanceOf(account1.address)).to.equal(1);
+    expect(await StanfordCS251NFT.totalSupply()).to.equal(1);
+    expect(await StanfordCS251NFT.balanceOf(minter.address)).to.equal(0);
+    expect(await StanfordCS251NFT.balanceOf(account1.address)).to.equal(1);
 
-    const owner = await CS251StanfordNFT.ownerOf(tokenId);
-    expect(owner).to.equal(account1.address);
-
-    const retrievedTokenId = await CS251StanfordNFT.tokenOfOwnerByIndex(
+    const tokenId = await StanfordCS251NFT.tokenOfOwnerByIndex(
       account1.address,
       0
     );
-    expect(retrievedTokenId).to.equal(tokenId);
+    expect(tokenId).to.equal(0);
+
+    const owner = await StanfordCS251NFT.ownerOf(tokenId);
+    expect(owner).to.equal(account1.address);
   });
   it("Should not be mintable by non-minter", async function () {
     await expect(
-      CS251StanfordNFT.connect(account1).safeMint(account1.address, 42)
+      StanfordCS251NFT.connect(account1).safeMint(
+        account1.address,
+        "<some URI>"
+      )
     ).to.be.revertedWith("");
   });
   it("Should not be transferable by non-minter", async function () {
-    const tokenId = 42;
-    const tx = await CS251StanfordNFT.safeMint(account1.address, tokenId);
+    const tx = await StanfordCS251NFT.safeMint(account1.address, "<some URI>");
     await tx.wait();
-    const retrievedTokenId = await CS251StanfordNFT.tokenOfOwnerByIndex(
+    const tokenId = await StanfordCS251NFT.tokenOfOwnerByIndex(
       account1.address,
       0
     );
-    expect(retrievedTokenId).to.equal(tokenId);
+    expect(tokenId).to.equal(0);
     await expect(
-      CS251StanfordNFT.connect(account1).transferFrom(
+      StanfordCS251NFT.connect(account1).transferFrom(
         account1.address,
         account2.address,
         tokenId
