@@ -1,7 +1,10 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
+import { signNonce } from "../scripts/lib/signNonce";
 import { StanfordCS251NFT } from "../typechain";
+
+const EXPECTED_TOKEN_URI = "ipfs://QmcNfzS4AdzX2vgrggvRkqF8vn6yFbhv66EF5r9y3f8Tov"; // TODO
 
 describe("CS251 Stanford NFT", function () {
   let StanfordCS251NFT: StanfordCS251NFT;
@@ -12,54 +15,55 @@ describe("CS251 Stanford NFT", function () {
     [minter, account1, account2] = await ethers.getSigners();
   });
   beforeEach(async () => {
-    const StanfordCS251NFTFactory = await ethers.getContractFactory(
-      "StanfordCS251NFT"
-    );
+    const StanfordCS251NFTFactory = await ethers.getContractFactory("StanfordCS251NFT");
     StanfordCS251NFT = await StanfordCS251NFTFactory.deploy();
     await StanfordCS251NFT.deployed();
   });
   it("Should return the correct name", async function () {
     expect(await StanfordCS251NFT.name()).to.equal("Stanford CS251 NFT");
   });
-  it("Should be mintable by minter", async function () {
-    const tokenURI = "<some URI>";
-    const tx = await StanfordCS251NFT.safeMint(account1.address, tokenURI);
+  it("Should allow mint with valid signature", async function () {
+    const nonce = 42;
+    const signature = await signNonce(nonce, minter);
+
+    const tx = await StanfordCS251NFT.connect(account1).mint(nonce, signature);
     await tx.wait();
     expect(await StanfordCS251NFT.totalSupply()).to.equal(1);
-    expect(await StanfordCS251NFT.balanceOf(minter.address)).to.equal(0);
-    expect(await StanfordCS251NFT.balanceOf(account1.address)).to.equal(1);
-
-    const tokenId = await StanfordCS251NFT.tokenOfOwnerByIndex(
-      account1.address,
-      0
-    );
-    expect(tokenId).to.equal(0);
-
-    const owner = await StanfordCS251NFT.ownerOf(tokenId);
-    expect(owner).to.equal(account1.address);
+    expect(await StanfordCS251NFT.ownerOf(nonce)).to.equal(account1.address);
   });
-  it("Should not be mintable by non-minter", async function () {
-    await expect(
-      StanfordCS251NFT.connect(account1).safeMint(
-        account1.address,
-        "<some URI>"
-      )
-    ).to.be.revertedWith("");
+  it("Should revert on invalid signature", async function () {
+    const nonce = 42;
+    const fakeMinter = account1;
+    const fakeSignature = await signNonce(nonce, fakeMinter);
+
+    await expect(StanfordCS251NFT.connect(account1).mint(nonce, fakeSignature)).to.be.revertedWith("Invalid signature");
   });
-  it("Should not be transferable by non-minter", async function () {
-    const tx = await StanfordCS251NFT.safeMint(account1.address, "<some URI>");
+  it("Should revert on double mint", async function () {
+    const nonce = 42;
+    const signature = await signNonce(nonce, minter);
+
+    const tx = await StanfordCS251NFT.connect(account1).mint(nonce, signature);
     await tx.wait();
-    const tokenId = await StanfordCS251NFT.tokenOfOwnerByIndex(
-      account1.address,
-      0
-    );
-    expect(tokenId).to.equal(0);
+    expect(await StanfordCS251NFT.ownerOf(nonce)).to.equal(account1.address);
+    await expect(StanfordCS251NFT.connect(account1).mint(nonce, signature)).to.be.revertedWith("Token already minted");
+    await expect(StanfordCS251NFT.connect(account2).mint(nonce, signature)).to.be.revertedWith("Token already minted");
+  });
+  it("Should not be transferable", async function () {
+    const nonce = 42;
+    const signature = await signNonce(nonce, minter);
+    const tx = await StanfordCS251NFT.connect(account1).mint(nonce, signature);
+    await tx.wait();
     await expect(
-      StanfordCS251NFT.connect(account1).transferFrom(
-        account1.address,
-        account2.address,
-        tokenId
-      )
-    ).to.be.revertedWith("");
+      StanfordCS251NFT.connect(account1).transferFrom(account1.address, account2.address, nonce)
+    ).to.be.revertedWith("Token is not transferable");
+  });
+  it("Should have the correct tokenURI for all tokens", async function () {
+    const nonce = 42;
+    const signature = await signNonce(nonce, minter);
+    const tx = await StanfordCS251NFT.connect(account1).mint(nonce, signature);
+    await tx.wait();
+
+    const tokenURI = await StanfordCS251NFT.tokenURI(nonce);
+    expect(tokenURI).to.equal(EXPECTED_TOKEN_URI);
   });
 });

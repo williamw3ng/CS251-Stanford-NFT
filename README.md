@@ -1,6 +1,6 @@
 # CS251 Stanford NFT
 
-This project implements an ERC721 NFT for Stanford's CS251 Cryptocurrencies and Blockchain Technologies class.
+This project implements an ERC-721 NFT for Stanford's CS251 Cryptocurrencies and Blockchain Technologies class.
 
 ### Install Dependencies
 
@@ -8,7 +8,7 @@ This project implements an ERC721 NFT for Stanford's CS251 Cryptocurrencies and 
 yarn install
 ```
 
-### Compile
+### Compile Contract
 
 ```shell
 yarn hardhat compile
@@ -17,29 +17,33 @@ yarn hardhat compile
 ### Test Contract
 
 ```shell
-yarn hardhat test test/index.ts
-```
-
-### Test Mint Script
-
-```shell
-yarn hardhat test test/uploadAndMintNFT.test.ts
+yarn hardhat test
 ```
 
 ### Deploy
+
+See comments on scripts/deploy.ts.
 
 ```shell
 yarn hardhat run scripts/deploy.ts --network [mumbai | polygon]
 ```
 
-### Mint
+### Generate signatures
 
-Select the appropriate parameters to run the script.
+See comments on scripts/signNonces.ts.
 
 ```shell
-yarn hardhat run scripts/uploadAndMintNFT.ts --network [mumbai | polygon]
+yarn hardhat run scripts/signNonces.ts --network [mumbai | polygon]
 ```
 
 ### NOTE
 
-You will need Pinata API Keys from the .env file. These are not published along with the GitHub repo. Contact the repo owners to get the keys.
+To deploy on Polygon, you'll need to set the PRIVATE_KEY of the contract deployer/owner/nonce-signer in a .env file. See .env.example for an example .env.
+
+### Contributing
+
+Please lint all your code before doing a PR.
+
+```shell
+yarn run lint
+```
