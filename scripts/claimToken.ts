@@ -6,7 +6,10 @@ const PRIVATE_KEY = ""; // TODO: Add your private key
 const NONCE = NaN; // TODO: Add the nonce you want to claim
 const SIGNATURE = ""; // TODO: Add the nonce signature you need to claim
 
-const ABI = ["function mint(uint256 nonce, bytes memory signature)"];
+const ABI = [
+  "function mint(uint256 nonce, bytes memory signature)",
+  "function tokenURI(uint256 tokenId) view returns (string memory)",
+];
 
 /**
  * To run:
@@ -25,6 +28,8 @@ async function main() {
   await tx.wait();
   console.log("Claimed token successfully");
   console.log(`txHash: ${tx.hash}`);
+  const tokenURI = await StanfordCS251NFT.tokenURI(NONCE);
+  console.log(`tokenURI: ${tokenURI}`);
 }
 
 main().catch(console.error);
