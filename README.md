@@ -18,11 +18,13 @@ yarn hardhat compile
 
 ```shell
 yarn hardhat test
+-- or --
+REPORT_GAS=true yarn hardhat test
 ```
 
 ### Deploy
 
-See comments on scripts/deploy.ts.
+See comments in scripts/deploy.ts.
 
 ```shell
 yarn hardhat run scripts/deploy.ts --network [mumbai | polygon]
@@ -30,15 +32,23 @@ yarn hardhat run scripts/deploy.ts --network [mumbai | polygon]
 
 ### Generate signatures
 
-See comments on scripts/signNonces.ts.
+See comments in scripts/signNonces.ts.
 
 ```shell
 yarn hardhat run scripts/signNonces.ts --network [mumbai | polygon]
 ```
 
-### NOTE
+### Claim Token
 
-To deploy on Polygon, you'll need to set the PRIVATE_KEY of the contract deployer/owner/nonce-signer in a .env file. See .env.example for an example .env.
+See comments in scripts/claimToken.ts.
+
+```shell
+yarn hardhat run scripts/claimToken.ts
+```
+
+### Configure Your Account
+
+Check `hardhat.config.ts`. To deploy on Polygon, you'll need to set the POLYGON_PRIVATE_KEY variable with your desired account.
 
 ### Contributing
 

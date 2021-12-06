@@ -19,27 +19,22 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   }
 });
 
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
-
 const MUMBAI_RPC_URL = "https://matic-mumbai.chainstacklabs.com";
-// Address: 0x08b353377aCea9a9f2c68F082fc6C80E09Ad7Aab
-const MUMBAI_ACCOUNTS = ["0xef44f641fb45153d599239a29161c158149f989959711cf89af260826883500c"];
+const MUMBAI_PRIVATE_KEY = "0xef44f641fb45153d599239a29161c158149f989959711cf89af260826883500c"; // Address: 0x08b353377aCea9a9f2c68F082fc6C80E09Ad7Aab
 const POLYGON_RPC_UTL = "https://polygon-rpc.com/";
-// Ensure there exists a .env file at the root of the repo with PRIVATE_KEY='<...>' for deploying
-// to Polygon. Check .env.example for an example .env.
-const POLYGON_ACCOUNTS = process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [];
+const POLYGON_PRIVATE_KEY = undefined; // TODO: Paste your Polygon private key (the account will be the contract owner)
+const ETHERSCAN_API_KEY = undefined; // TODO: Paste your Etherscan API Key if you want to use contract verification
 
 const config: HardhatUserConfig = {
   solidity: "0.8.4",
   networks: {
     mumbai: {
       url: MUMBAI_RPC_URL,
-      accounts: MUMBAI_ACCOUNTS,
+      accounts: MUMBAI_PRIVATE_KEY ? [MUMBAI_PRIVATE_KEY] : [],
     },
     polygon: {
       url: POLYGON_RPC_UTL,
-      accounts: POLYGON_ACCOUNTS,
+      accounts: POLYGON_PRIVATE_KEY ? [POLYGON_PRIVATE_KEY] : [],
     },
   },
   gasReporter: {
@@ -47,7 +42,7 @@ const config: HardhatUserConfig = {
     currency: "USD",
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: ETHERSCAN_API_KEY,
   },
 };
 
