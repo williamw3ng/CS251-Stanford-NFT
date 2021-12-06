@@ -17,7 +17,7 @@ import fs from "fs";
  *    yarn hardhat run scripts/signNonces.ts --network [mumbai | polygon]
  */
 
-const MAX_NONCE = 50; // TODO: set this
+const MAX_NONCE = 100; // TODO: set this
 const MIN_NONCE = 0; // TODO: set this
 const OUT_FILE = "./output/signatures.json";
 
