@@ -48,7 +48,7 @@ yarn hardhat run scripts/claimToken.ts
 
 ### Configure Your Account
 
-Check `hardhat.config.ts`. To deploy on Polygon, you'll need to set the POLYGON_PRIVATE_KEY variable with your desired account.
+Check `hardhat.config.ts`. To deploy on Polygon, you'll need to set the `POLYGON_PRIVATE_KEY` variable with your desired account.
 
 ### Contributing
 
