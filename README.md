@@ -46,6 +46,12 @@ See comments in scripts/claimToken.ts.
 yarn hardhat run scripts/claimToken.ts
 ```
 
+### Create Random Ethereum Account
+
+```shell
+yarn hardhat run scripts/createRandomAccount.ts
+```
+
 ### Configure Your Account
 
 Check `hardhat.config.ts`. To deploy on Polygon, you'll need to set the `POLYGON_PRIVATE_KEY` variable with your desired account.
