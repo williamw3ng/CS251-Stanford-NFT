@@ -1,6 +1,7 @@
 {
-  "description": "Stanford CS251 non-transferable NFT for successful course completion.",
+  "description": "Stanford CS 251 non-transferable NFT | Fall 2021 collection.\n\nInstructors: Dan Boneh & Benedikt Bünz\n\nTeaching assistants: Mathew Hogan, Sahar Markovich, Simon Tao, Andrew Tierno\n\nNFT contributors: Daniel Marin, 0xkydo.eth, davidtsong.eth, Andrew Hwang",
   "external_url": "https://cs251.stanford.edu",
-  "name": "Stanford CS251 NFT",
-  "image": "ipfs://QmZS2rq98Gtwo7nE2EjV712hzTwVrBWcaY6W9BRfBbHoTW"
+  "name": "Stanford CS 251 NFT",
+  "image": "ipfs://QmXhTNyemiZdcSJrVy8qMKVLJHAp9r4rKV6rWLashsZfcN",
+  "animation_url": "ipfs://QmesUbbemHQaqmZWcp1HpvUiCSxnJzmybq7uxM9DZ18bff"
 }

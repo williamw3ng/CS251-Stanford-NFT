@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 
 const MUMBAI_RPC_URL = "https://matic-mumbai.chainstacklabs.com";
-const MUMBAI_CONTRACT_ADDRESS = "0x76fd6Fe501d55d51F589565564b0ABC7C0A01F5d";
+const MUMBAI_CONTRACT_ADDRESS = ""; // TODO: Add the deployed contract address
 const PRIVATE_KEY = ""; // TODO: Add your private key
 const NONCE = NaN; // TODO: Add the nonce you want to claim
 const SIGNATURE = ""; // TODO: Add the nonce signature you need to claim
