@@ -38,7 +38,19 @@ See comments in scripts/signNonces.ts.
 yarn hardhat run scripts/signNonces.ts --network [mumbai | polygon]
 ```
 
-### Claim Token
+### Verify contract on Polygonscan
+
+Set the `POLYGONSCAN_API_KEY` variable in `hardhat.config.ts`.
+
+```shell
+yarn hardhat verify --network [mumbai | polygon] <Contract Address>
+```
+
+### Configure Your Account
+
+Check `hardhat.config.ts`. To deploy on Polygon, you'll need to set the `POLYGON_PRIVATE_KEY` variable with your desired account.
+
+### (Optional) Claim Token
 
 See comments in scripts/claimToken.ts.
 
@@ -46,15 +58,11 @@ See comments in scripts/claimToken.ts.
 yarn hardhat run scripts/claimToken.ts
 ```
 
-### Create Random Ethereum Account
+### (Optional) Create Random Ethereum Account
 
 ```shell
 yarn hardhat run scripts/createRandomAccount.ts
 ```
-
-### Configure Your Account
-
-Check `hardhat.config.ts`. To deploy on Polygon, you'll need to set the `POLYGON_PRIVATE_KEY` variable with your desired account.
 
 ### Contributing
 
