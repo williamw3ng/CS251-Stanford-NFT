@@ -26,7 +26,7 @@ contract StanfordCS251NFT is ERC721, ERC721Enumerable, Ownable {
   constructor() ERC721("Stanford CS251 NFT", "CS251") {}
 
   function _baseURI() internal pure override returns (string memory) {
-    return "ipfs://QmcNfzS4AdzX2vgrggvRkqF8vn6yFbhv66EF5r9y3f8Tov"; // TODO
+    return "ipfs://Qmdg6D59xxsVspPn5mYquh2ZVVUsX3YXbLmit9yYzz2zwJ"; // TODO
   }
 
   // The following functions are overrides required by Solidity.

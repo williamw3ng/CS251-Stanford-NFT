@@ -4,7 +4,7 @@ import { ethers } from "hardhat";
 import { signNonce } from "../scripts/lib/signNonce";
 import { StanfordCS251NFT } from "../typechain";
 
-const EXPECTED_TOKEN_URI = "ipfs://QmcNfzS4AdzX2vgrggvRkqF8vn6yFbhv66EF5r9y3f8Tov"; // TODO
+const EXPECTED_TOKEN_URI = "ipfs://Qmdg6D59xxsVspPn5mYquh2ZVVUsX3YXbLmit9yYzz2zwJ"; // TODO
 
 describe("CS251 Stanford NFT", function () {
   let StanfordCS251NFT: StanfordCS251NFT;
