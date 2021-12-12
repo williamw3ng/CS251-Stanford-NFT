@@ -23,7 +23,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @custom:security-contact cs251ta@cs.stanford.edu
 contract StanfordCS251NFT is ERC721, ERC721Enumerable, Ownable {
-  constructor() ERC721("Stanford CS251 NFT", "CS251") {}
+  constructor() ERC721("Stanford CS 251 NFT", "CS 251") {}
 
   function _baseURI() internal pure override returns (string memory) {
     return "ipfs://Qmdg6D59xxsVspPn5mYquh2ZVVUsX3YXbLmit9yYzz2zwJ"; // TODO
