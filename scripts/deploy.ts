@@ -17,12 +17,16 @@ async function main() {
   console.log(`Connected to chainId: ${(await deployer.provider.getNetwork()).chainId}`);
   console.log("Deploying contract with account:", deployer.address);
   console.log("Account balance:", (await deployer.getBalance()).toString());
+  console.log("Deploying...");
 
   const StanfordCS251NFTFactory = await ethers.getContractFactory("StanfordCS251NFT");
   const StanfordCS251NFT = await StanfordCS251NFTFactory.deploy();
   await StanfordCS251NFT.deployed();
 
   console.log("StanfordCS251NFT deployed to:", StanfordCS251NFT.address);
+  console.log(
+    "Note: Due to unknwown reasons, the address above might not in fact be the deployed contract's address. Please verify the address on polygonscan."
+  );
 }
 
 main().catch((error) => {
